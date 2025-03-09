@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 class FavoritesStore {
   favorites = [];
@@ -10,16 +10,25 @@ class FavoritesStore {
 
   loadFavorites() {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    this.favorites = storedFavorites;
+    runInAction(() => {
+      this.favorites = storedFavorites; // Ahora MobX detectará este cambio
+    });
   }
 
   addFavorite(game) {
-    this.favorites.push(game);
-    localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    // Asegurarse de que el juego no esté ya en la lista de favoritos
+    if (!this.favorites.some((fav) => fav.id === game.id)) {
+      runInAction(() => {
+        this.favorites.push(game); // Usar runInAction para que MobX lo detecte
+      });
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    }
   }
 
   removeFavorite(gameId) {
-    this.favorites = this.favorites.filter(game => game.id !== gameId);
+    runInAction(() => {
+      this.favorites = this.favorites.filter(game => game.id !== gameId); // Asegurarse de que MobX lo detecte
+    });
     localStorage.setItem("favorites", JSON.stringify(this.favorites));
   }
 }
