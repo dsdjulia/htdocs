@@ -1,38 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-import { getPopularGames } from "../services/api";
+import GameStore from "../stores/GameStore";
 
-function GameList() {
-  const [games, setGames] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(5);
-  const [loading, setLoading] = useState(true);
-
+const GameList = observer(() => {
   useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        setLoading(true);
-        const data = await getPopularGames(page);
+    GameStore.fetchGames();
+  }, []);
 
-        console.log("📦 Datos recibidos en GameList.jsx:", data);
-        setGames(data.results);
-        setTotalPages(Math.ceil(data.count / 20));
-      } catch (error) {
-        console.error("❌ Error al obtener juegos:", error);
-        setGames([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGames();
-  }, [page]);
-
-  if (loading) {
+  if (GameStore.loading) {
     return <p className="text-center text-lg mt-10 text-white">Cargando juegos...</p>;
   }
 
-  if (!games || games.length === 0) {
+  if (!GameStore.games || GameStore.games.length === 0) {
     return <p className="text-center text-lg mt-10 text-red-500">No se encontraron juegos.</p>;
   }
 
@@ -42,7 +22,7 @@ function GameList() {
 
       {/* Tarjetas de Juegos */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {games.map((game) => (
+        {GameStore.games.map((game) => (
           <Link
             to={`/game/${game.id}`}
             key={game.id}
@@ -64,8 +44,8 @@ function GameList() {
       {/* 🔄 Controles de paginación */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
+          onClick={() => GameStore.setPage(GameStore.page - 1)}
+          disabled={GameStore.page === 1}
           className="px-6 py-3 bg-gray-800 text-white rounded-full shadow-md transition 
             hover:bg-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -73,12 +53,12 @@ function GameList() {
         </button>
 
         <span className="px-6 py-3 bg-gray-900 text-neon-blue font-bold rounded-full shadow-md">
-          Página {page} de {totalPages}
+          Página {GameStore.page} de {GameStore.totalPages}
         </span>
 
         <button
-          onClick={() => setPage(page + 1)}
-          disabled={page === totalPages}
+          onClick={() => GameStore.setPage(GameStore.page + 1)}
+          disabled={GameStore.page === GameStore.totalPages}
           className="px-6 py-3 bg-gray-800 text-white rounded-full shadow-md transition 
             hover:bg-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -87,6 +67,6 @@ function GameList() {
       </div>
     </div>
   );
-}
+});
 
 export default GameList;
