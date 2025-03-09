@@ -7,9 +7,9 @@ import GameDetail from "./pages/GameDetail";
 import GamesByGenre from "./pages/GamesByGenre";
 import GamesByTag from "./pages/GamesByTag";
 import Publisher from "./pages/Publisher";
-import SearchResults from "./pages/SearchResults"; // 👈 Importamos la nueva página
-import Publishers from "./pages/Publishers"; // 👈 Importamos la nueva página
-import Favorites from "./pages/Favorites"; // 👈 Importamos la página
+import SearchResults from "./pages/SearchResults";
+import Publishers from "./pages/Publishers";
+import Favorites from "./pages/Favorites";
 
 
 function AppRouter() {
@@ -26,8 +26,8 @@ function AppRouter() {
             <Route path="/tag/:tag" element={<GamesByTag />} />
             <Route path="/publisher/:id" element={<Publisher />} />
             <Route path="/search/:query" element={<SearchResults />} />
-            <Route path="/publishers" element={<Publishers />} /> {/* 🔴 Nueva Ruta */}
-            <Route path="/favorites" element={<Favorites />} /> {/* 🔴 Ruta de favoritos */}
+            <Route path="/publishers" element={<Publishers />} />
+            <Route path="/favorites" element={<Favorites />} />
           </Routes>
         </div>
         <Footer />

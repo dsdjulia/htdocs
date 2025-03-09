@@ -9,9 +9,9 @@ import GameDetailStore from "./stores/GameDetailStore";
 import HomeStore from "./stores/HomeStore";
 import PublisherStore from "./stores/PublisherStore";
 
-window.PublisherStore = PublisherStore; // ✅ Esto permite accederlo en consola
-window.HomeStore = HomeStore; // 👈 Esto lo hace accesible en la consola
-window.GameDetailStore = GameDetailStore; // 👈 Esto lo hace accesible en la consola
+window.PublisherStore = PublisherStore;
+window.HomeStore = HomeStore;
+window.GameDetailStore = GameDetailStore;
 window.FavoritesStore = FavoritesStore; 
 window.GameStore = GameStore
 

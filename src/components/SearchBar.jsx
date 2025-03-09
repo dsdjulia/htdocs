@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
-  const [query, setQuery] = useState(""); // ✅ Estado de la barra de búsqueda
+  const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = (e) => {
@@ -10,14 +10,14 @@ function SearchBar() {
     if (!query.trim()) return;
 
     navigate(`/search/${query}`);
-    setQuery(""); // ✅ Limpia el input después de buscar
+    setQuery("");
   };
 
   return (
     <form onSubmit={handleSearch} className="flex space-x-2">
       <input
         type="text"
-        value={query || ""} // 🔴 Aseguramos que nunca sea undefined
+        value={query || ""}
         onChange={(e) => {
           setQuery(e.target.value);
         }}

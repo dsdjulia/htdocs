@@ -21,7 +21,6 @@ const GameDetail = observer(() => {
         {GameDetailStore.game.name}
       </h1>
 
-      {/* 📌 Imagen del juego */}
       <div className="flex justify-center">
         <motion.img
           src={GameDetailStore.game.background_image}
@@ -33,15 +32,13 @@ const GameDetail = observer(() => {
         />
       </div>
 
-      {/* 📌 Descripción */}
       <p className="mt-6 text-lg text-gray-300 leading-relaxed border-l-4 border-neon-blue pl-4">
         {GameDetailStore.game.description}
       </p>
 
-      {/* 📌 Géneros */}
       <div className="mt-6">
         <h2 className="text-2xl font-bold text-neon-blue border-b-2 border-gray-700 pb-2">
-          🎭 Géneros
+          Géneros
         </h2>
         <div className="flex flex-wrap gap-2 mt-2">
           {GameDetailStore.game.genres.map((genre) => (
@@ -56,10 +53,9 @@ const GameDetail = observer(() => {
         </div>
       </div>
 
-      {/* 📌 Etiquetas */}
       <div className="mt-6">
         <h2 className="text-2xl font-bold text-neon-blue border-b-2 border-gray-700 pb-2">
-          🏷️ Etiquetas
+          Etiquetas
         </h2>
         <div className="flex flex-wrap gap-2 mt-2">
           {GameDetailStore.game.tags.map((tag) => (
@@ -74,10 +70,9 @@ const GameDetail = observer(() => {
         </div>
       </div>
 
-      {/* 📌 Publicadores */}
       <div className="mt-6">
         <h2 className="text-2xl font-bold text-neon-blue border-b-2 border-gray-700 pb-2">
-          🏢 Publisher
+          Publisher
         </h2>
         <div className="flex flex-wrap gap-2 mt-2">
           {GameDetailStore.game.publishers.map((publisher) => (
@@ -92,7 +87,6 @@ const GameDetail = observer(() => {
         </div>
       </div>
 
-      {/* 📌 Valoración */}
       <div className="mt-6">
         <h2 className="text-2xl font-bold text-neon-blue border-b-2 border-gray-700 pb-2">
           ⭐ Valoración
@@ -100,7 +94,6 @@ const GameDetail = observer(() => {
         <p className="text-lg text-gray-400">{GameDetailStore.game.rating} / 5</p>
       </div>
 
-      {/* 📌 Botón de favoritos */}
       <div className="flex justify-center mt-6">
         <button
           onClick={() => GameDetailStore.toggleFavorite()}
@@ -112,7 +105,6 @@ const GameDetail = observer(() => {
         </button>
       </div>
 
-      {/* 📌 Enlace de regreso */}
       <div className="mt-8 text-center">
         <Link to="/" className="text-neon-blue text-lg hover:underline">
           ⬅ Volver a la lista de juegos

@@ -7,9 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 function GameSlider({ games }) {
   const [gameList, setGameList] = useState([]);
 
-  // ✅ Asegurar que `gameList` se actualiza cuando cambian los juegos
   useEffect(() => {
-    console.log("📢 Recibiendo juegos en GameSlider:", games);
     setGameList(games);
   }, [games]);
 

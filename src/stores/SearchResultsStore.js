@@ -29,13 +29,8 @@ class SearchResultsStore {
         this.query = query;
       });
 
-      console.log("📢 Fetching results for query:", query, "Página:", page);
-
       const gamesData = await searchGames(query, page);
       const publishersData = await searchPublishers(query, page);
-
-      console.log("📊 Juegos obtenidos:", gamesData.results);
-      console.log("🏢 Publishers obtenidos:", publishersData.results);
 
       runInAction(() => {
         this.games = gamesData.results || [];
@@ -46,7 +41,7 @@ class SearchResultsStore {
       });
 
     } catch (error) {
-      console.error("❌ Error al obtener resultados:", error);
+      console.error("Error al obtener resultados:", error);
       runInAction(() => {
         this.games = [];
         this.publishers = [];
@@ -56,13 +51,13 @@ class SearchResultsStore {
   }
 
   setPage(newPage) {
-    if (newPage < 1 || newPage > this.totalPagesGames) return; // Evitar valores fuera de rango
+    if (newPage < 1 || newPage > this.totalPagesGames) return;
 
     runInAction(() => {
       this.page = newPage;
     });
 
-    this.fetchResults(this.query, newPage); // Recargar los resultados al cambiar de página
+    this.fetchResults(this.query, newPage);
   }
 }
 

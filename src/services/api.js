@@ -33,10 +33,10 @@ export const getGameDetails = async (id) => {
 export const getGamesByTag = async (tag, page = 1) => {
   try {
     const response = await api.get(`games?tags=${tag}&page=${page}`);
-    return response.data; // 🔴 Devuelve toda la data, no solo `results`
+    return response.data;
   } catch (error) {
     console.error("Error al obtener juegos por tag:", error);
-    return { results: [], count: 0 }; // 🔴 Asegura que `count` no sea undefined
+    return { results: [], count: 0 };
   }
 };
 
@@ -44,27 +44,22 @@ export const getGamesByTag = async (tag, page = 1) => {
 export const getGamesByGenre = async (genre, page = 1) => {
   try {
     const response = await api.get(`games?genres=${genre}&page=${page}`);
-    return response.data; // 🔴 Devuelve toda la data, no solo `results`
+    return response.data;
   } catch (error) {
     console.error("Error al obtener juegos por género:", error);
-    return { results: [], count: 0 }; // 🔴 Asegura que `count` no sea undefined
+    return { results: [], count: 0 };
   }
 };
 
 
 export const getPublisherDetails = async (id, page = 1) => {
   try {
-    // 🔹 Obtener detalles del publisher
-    const publisherResponse = await api.get(`/publishers/${id}`); // 🔥 Asegurarse de incluir `/`
+    const publisherResponse = await api.get(`/publishers/${id}`);
     const publisher = publisherResponse.data;
 
-    console.log("📢 Datos del publisher recibidos:", publisher);
-
-    // 🔹 Obtener juegos publicados por este publisher con paginación
-    const gamesResponse = await api.get(`/games?publishers=${id}&page=${page}`); // 🔥 También corregido
+    const gamesResponse = await api.get(`/games?publishers=${id}&page=${page}`);
     const gamesData = gamesResponse.data;
 
-    console.log("🎮 Juegos obtenidos:", gamesData.results);
 
     return { 
       ...publisher, 
@@ -72,8 +67,8 @@ export const getPublisherDetails = async (id, page = 1) => {
       totalGames: gamesData.count || 0 
     };
   } catch (error) {
-    console.error("❌ Error al obtener información del publisher:", error);
-    return { games: [], totalGames: 0 }; // 🔴 Evita fallos si la API falla
+    console.error("Error al obtener información del publisher:", error);
+    return { games: [], totalGames: 0 };
   }
 };
 

@@ -27,7 +27,7 @@ class GamesByTagStore {
         this.loading = false;
       });
     } catch (error) {
-      console.error("❌ Error al obtener juegos por tag:", error);
+      console.error("Error al obtener juegos por tag:", error);
       runInAction(() => {
         this.games = [];
         this.loading = false;

@@ -12,22 +12,21 @@ class GameDetailStore {
   async fetchGame(id) {
     try {
       const data = await getGameDetails(id);
-      console.log("📦 Datos completos del juego:", data); // ✅ Verifica qué datos devuelve la API
       runInAction(() => {
         this.game = {
           id: data.id,
           name: data.name,
           background_image: data.background_image,
           description: data.description_raw,
-          genres: data.genres, // ✅ Asegurar que se guarden los géneros
-          tags: data.tags, // ✅ Guardar etiquetas
-          publishers: data.publishers, // ✅ Guardar publishers
-          rating: data.rating, // ✅ Guardar valoración
+          genres: data.genres,
+          tags: data.tags,
+          publishers: data.publishers,
+          rating: data.rating,
         };
         this.checkIfFavorite(id);
       });
     } catch (error) {
-      console.error("❌ Error al obtener detalles del juego:", error);
+      console.error("Error al obtener detalles del juego:", error);
     }
   }
 

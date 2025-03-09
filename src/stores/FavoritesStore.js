@@ -5,7 +5,7 @@ class FavoritesStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.loadFavorites(); // Cargar favoritos al iniciar
+    this.loadFavorites();
   }
 
   loadFavorites() {

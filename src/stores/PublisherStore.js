@@ -23,11 +23,8 @@ class PublisherStore {
       runInAction(() => {
         this.loading = true;
       });
-
-      console.log(`📢 Fetching publisher data for ID: ${id}, Página: ${page}`);
       
       const data = await getPublisherDetails(id, page);
-      console.log("📦 Datos recibidos en PublisherStore:", data);
 
       runInAction(() => {
         this.games.replace(data.games);
@@ -38,13 +35,12 @@ class PublisherStore {
           games_count: data.games_count,
           image_background: data.image_background,
         };
-        this.totalPages = Math.ceil(data.totalGames / 20); // ✅ Se recalcula totalPages para evitar errores
+        this.totalPages = Math.ceil(data.totalGames / 20);
         this.loading = false;
       });
 
-      console.log("✅ Estado final en MobX:", this.games.slice(), this.publisher, "Loading:", this.loading);
     } catch (error) {
-      console.error("❌ Error al obtener detalles del publisher:", error);
+      console.error("Error al obtener detalles del publisher:", error);
       runInAction(() => {
         this.games.replace([]);
         this.publisher = null;
@@ -53,7 +49,6 @@ class PublisherStore {
     }
   }
 
-  // 🔥 ✅ `setPage()` correctamente ubicado dentro de la clase `PublisherStore`
   setPage(newPage) {
     if (newPage < 1 || newPage > this.totalPages) return; // Evita valores fuera de rango
 

@@ -5,7 +5,7 @@ import FavoritesStore from "../stores/FavoritesStore";
 const Favorites = observer(() => {
   return (
     <div className="p-6 min-h-screen bg-gradient-to-r from-black via-gray-900 to-black text-white">
-      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">💖 Juegos Favoritos</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">Juegos Favoritos</h1>
 
       {FavoritesStore.favorites.length === 0 ? (
         <p className="text-center text-lg text-red-500">No tienes juegos favoritos aún.</p>

@@ -21,7 +21,7 @@ const GamesByGenre = observer(() => {
   return (
     <div className="p-6 min-h-screen bg-gradient-to-r from-black via-gray-900 to-black text-white">
       <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">
-        🎮 Juegos de {genre}
+        Juegos de {genre}
       </h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -41,7 +41,6 @@ const GamesByGenre = observer(() => {
         ))}
       </div>
 
-      {/* 🔄 Controles de paginación */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
           onClick={() => GamesByGenreStore.setPage(GamesByGenreStore.page - 1)}

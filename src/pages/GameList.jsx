@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import GameStore from "../stores/GameStore";
 
-const GameList = () => { // ❌ Quitamos el `observer()` aquí
+const GameList = () => {
   useEffect(() => {
     GameStore.fetchGames();
   }, []);
@@ -18,9 +18,8 @@ const GameList = () => { // ❌ Quitamos el `observer()` aquí
 
   return (
     <div className="p-6 min-h-screen bg-gradient-to-r from-black via-gray-900 to-black text-white">
-      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">🎮 Explorar Juegos</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">Explorar Juegos</h1>
 
-      {/* Tarjetas de Juegos */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {GameStore.games.map((game) => (
           <Link
@@ -35,13 +34,11 @@ const GameList = () => { // ❌ Quitamos el `observer()` aquí
             />
             <h2 className="text-lg font-semibold mt-2 text-center">{game.name}</h2>
 
-            {/* Efecto Neón */}
             <div className="absolute inset-0 rounded-lg border-2 border-transparent hover:border-neon-blue transition"></div>
           </Link>
         ))}
       </div>
 
-      {/* 🔄 Controles de paginación */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
           onClick={() => GameStore.setPage(GameStore.page - 1)}

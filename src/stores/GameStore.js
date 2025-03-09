@@ -18,15 +18,13 @@ class GameStore {
 
       const data = await getPopularGames(this.page);
 
-      console.log("📦 Datos recibidos en GameStore:", data);
-
       runInAction(() => {
         this.games = data.results;
         this.totalPages = Math.ceil(data.count / 20);
         this.loading = false;
       });
     } catch (error) {
-      console.error("❌ Error al obtener juegos:", error);
+      console.error("Error al obtener juegos:", error);
       runInAction(() => {
         this.games = [];
         this.loading = false;

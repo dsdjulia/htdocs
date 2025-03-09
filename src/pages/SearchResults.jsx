@@ -16,10 +16,9 @@ const SearchResults = observer(() => {
 
   return (
     <div className="p-6 min-h-screen bg-gradient-to-r from-black via-gray-900 to-black text-white">
-      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">🔍 Resultados para "{query}"</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center text-neon-blue">Resultados para "{query}"</h1>
 
-      {/* 🎮 Juegos */}
-      <h2 className="text-3xl font-semibold mt-6 text-neon-green">🎮 Juegos</h2>
+      <h2 className="text-3xl font-semibold mt-6 text-neon-green">Juegos</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {SearchResultsStore.games.length > 0 ? (
           SearchResultsStore.games.map((game) => (
@@ -35,7 +34,6 @@ const SearchResults = observer(() => {
               />
               <h2 className="text-lg font-semibold mt-2 text-center">{game.name}</h2>
 
-              {/* Efecto Neón */}
               <div className="absolute inset-0 rounded-lg border-2 border-transparent hover:border-neon-blue transition"></div>
             </Link>
           ))
@@ -44,7 +42,6 @@ const SearchResults = observer(() => {
         )}
       </div>
 
-      {/* 🔄 Paginación de Juegos */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
           onClick={() => SearchResultsStore.setPage(SearchResultsStore.page - 1)}
@@ -69,8 +66,7 @@ const SearchResults = observer(() => {
         </button>
       </div>
 
-      {/* 🏢 Publishers */}
-      <h2 className="text-3xl font-semibold mt-6 text-neon-green">🏢 Publishers</h2>
+      <h2 className="text-3xl font-semibold mt-6 text-neon-green">Publishers</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SearchResultsStore.publishers.length > 0 ? (
           SearchResultsStore.publishers.map((publisher) => (
@@ -81,10 +77,9 @@ const SearchResults = observer(() => {
             >
               <h2 className="text-lg font-semibold text-center">{publisher.name}</h2>
               <p className="text-gray-400 text-center mt-2">
-                🎮 Total de juegos: <span className="text-neon-blue">{publisher.games_count}</span>
+                Total de juegos: <span className="text-neon-blue">{publisher.games_count}</span>
               </p>
 
-              {/* Efecto Neón */}
               <div className="absolute inset-0 rounded-lg border-2 border-transparent hover:border-neon-blue transition"></div>
             </Link>
           ))
@@ -93,7 +88,6 @@ const SearchResults = observer(() => {
         )}
       </div>
 
-      {/* 🔄 Paginación de Publishers */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
           onClick={() => SearchResultsStore.setPage(SearchResultsStore.page - 1)}

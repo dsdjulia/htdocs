@@ -21,11 +21,8 @@ class PublishersStore {
       runInAction(() => {
         this.loading = true;
       });
-
-      console.log("📢 Fetching publishers data, Página:", this.page);
       
       const data = await getAllPublishers(this.page);
-      console.log("📦 Datos recibidos en PublishersStore:", data);
 
       runInAction(() => {
         this.publishers = data.results || [];
@@ -34,7 +31,7 @@ class PublishersStore {
       });
       
     } catch (error) {
-      console.error("❌ Error al obtener publishers:", error);
+      console.error("Error al obtener publishers:", error);
       runInAction(() => {
         this.publishers = [];
         this.loading = false;
@@ -43,13 +40,13 @@ class PublishersStore {
   }
 
   setPage(newPage) {
-    if (newPage < 1 || newPage > this.totalPages) return; // Evitar valores fuera de rango
+    if (newPage < 1 || newPage > this.totalPages) return;
 
     runInAction(() => {
       this.page = newPage;
     });
 
-    this.fetchPublishers(); // Recargar los publishers al cambiar de página
+    this.fetchPublishers();
   }
 }
 

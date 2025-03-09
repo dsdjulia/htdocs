@@ -11,26 +11,22 @@ class HomeStore {
 
   async fetchGames() {
     try {
-      console.log("📢 Fetching popular games...");
-
       runInAction(() => {
-        this.loading = true; // ✅ Asegurar que se establece en true al iniciar la petición
+        this.loading = true;
       });
 
       const data = await getPopularGames();
-      console.log("📊 Datos recibidos:", data);
 
       runInAction(() => {
         this.games = data?.results || [];
-        this.loading = false; // ✅ Asegurar que se establece en false al finalizar
+        this.loading = false;
       });
 
-      console.log("✅ Estado actualizado en MobX:", this.games, "Loading:", this.loading);
     } catch (error) {
-      console.error("❌ Error al obtener juegos populares:", error);
+      console.error("Error al obtener juegos populares:", error);
       runInAction(() => {
         this.games = [];
-        this.loading = false; // ✅ Asegurar que loading también cambia en caso de error
+        this.loading = false;
       });
     }
   }

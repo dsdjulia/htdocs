@@ -27,7 +27,7 @@ class GamesByGenreStore {
         this.loading = false;
       });
     } catch (error) {
-      console.error("❌ Error al obtener juegos por género:", error);
+      console.error("Error al obtener juegos por género:", error);
       runInAction(() => {
         this.games = [];
         this.loading = false;
