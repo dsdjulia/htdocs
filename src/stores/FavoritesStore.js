@@ -11,15 +11,14 @@ class FavoritesStore {
   loadFavorites() {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     runInAction(() => {
-      this.favorites = storedFavorites; // Ahora MobX detectará este cambio
+      this.favorites = storedFavorites; 
     });
   }
 
   addFavorite(game) {
-    // Asegurarse de que el juego no esté ya en la lista de favoritos
     if (!this.favorites.some((fav) => fav.id === game.id)) {
       runInAction(() => {
-        this.favorites.push(game); // Usar runInAction para que MobX lo detecte
+        this.favorites.push(game);
       });
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
     }
@@ -27,7 +26,7 @@ class FavoritesStore {
 
   removeFavorite(gameId) {
     runInAction(() => {
-      this.favorites = this.favorites.filter(game => game.id !== gameId); // Asegurarse de que MobX lo detecte
+      this.favorites = this.favorites.filter(game => game.id !== gameId);
     });
     localStorage.setItem("favorites", JSON.stringify(this.favorites));
   }
