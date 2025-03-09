@@ -1,24 +1,25 @@
-import { makeAutoObservable, runInAction} from "mobx";
-import { getPopularGames } from "../services/api";
-class GameStore {
+import { makeAutoObservable, runInAction } from "mobx";
+import { getGamesByGenre } from "../services/api";
+
+class GamesByGenreStore {
   games = [];
   page = 1;
   totalPages = 5;
   loading = true;
+  genre = "";
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  async fetchGames() {
+  async fetchGames(genre) {
+    this.genre = genre;
     try {
       runInAction(() => {
         this.loading = true;
       });
 
-      const data = await getPopularGames(this.page);
-
-      console.log("📦 Datos recibidos en GameStore:", data);
+      const data = await getGamesByGenre(this.genre, this.page);
 
       runInAction(() => {
         this.games = data.results;
@@ -26,7 +27,7 @@ class GameStore {
         this.loading = false;
       });
     } catch (error) {
-      console.error("❌ Error al obtener juegos:", error);
+      console.error("❌ Error al obtener juegos por género:", error);
       runInAction(() => {
         this.games = [];
         this.loading = false;
@@ -38,8 +39,8 @@ class GameStore {
     runInAction(() => {
       this.page = newPage;
     });
-    this.fetchGames();
+    this.fetchGames(this.genre);
   }
 }
 
-export default new GameStore();
+export default new GamesByGenreStore();

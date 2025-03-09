@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import GameStore from "../stores/GameStore";
 
-const GameList = observer(() => {
+const GameList = () => { // ❌ Quitamos el `observer()` aquí
   useEffect(() => {
     GameStore.fetchGames();
   }, []);
@@ -67,6 +67,6 @@ const GameList = observer(() => {
       </div>
     </div>
   );
-});
+};
 
-export default GameList;
+export default observer(GameList);

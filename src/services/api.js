@@ -54,20 +54,29 @@ export const getGamesByGenre = async (genre, page = 1) => {
 
 export const getPublisherDetails = async (id, page = 1) => {
   try {
-    // 🔴 Obtener detalles del publisher
-    const publisherResponse = await api.get(`publishers/${id}`);
+    // 🔹 Obtener detalles del publisher
+    const publisherResponse = await api.get(`/publishers/${id}`); // 🔥 Asegurarse de incluir `/`
     const publisher = publisherResponse.data;
 
-    // 🔴 Obtener juegos publicados por este publisher con paginación
-    const gamesResponse = await api.get(`games?publishers=${id}&page=${page}`);
-    const gamesData = gamesResponse.data; // 🔴 Guardamos la respuesta completa
+    console.log("📢 Datos del publisher recibidos:", publisher);
 
-    return { ...publisher, games: gamesData.results || [], totalGames: gamesData.count || 0 }; // 🔴 Agregamos totalGames
+    // 🔹 Obtener juegos publicados por este publisher con paginación
+    const gamesResponse = await api.get(`/games?publishers=${id}&page=${page}`); // 🔥 También corregido
+    const gamesData = gamesResponse.data;
+
+    console.log("🎮 Juegos obtenidos:", gamesData.results);
+
+    return { 
+      ...publisher, 
+      games: gamesData.results || [], 
+      totalGames: gamesData.count || 0 
+    };
   } catch (error) {
-    console.error("Error al obtener información del publisher:", error);
-    return { games: [], totalGames: 0 }; // 🔴 Evita fallos en la app si no hay juegos
+    console.error("❌ Error al obtener información del publisher:", error);
+    return { games: [], totalGames: 0 }; // 🔴 Evita fallos si la API falla
   }
 };
+
 
 
 
@@ -103,3 +112,4 @@ export const getAllPublishers = async (page = 1) => {
   }
 };
 
+window.getPublisherDetails = getPublisherDetails; // ✅ Permite probarlo en la consola

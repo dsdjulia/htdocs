@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
-import { getPopularGames } from "../services/api";
+import { useEffect } from "react";
+import { observer } from "mobx-react-lite";
+import HomeStore from "../stores/HomeStore";
 import GameSlider from "../components/Slider";
 
-function Home() {
-  const [games, setGames] = useState({ results: [] });
-
+const Home = observer(() => {
   useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const data = await getPopularGames();
-        console.log("📊 Juegos populares obtenidos en Home:", data);
-
-        setGames(data || { results: [] });
-      } catch (error) {
-        console.error("❌ Error al obtener juegos populares:", error);
-        setGames({ results: [] });
-      }
-    };
-
-    fetchGames();
+    HomeStore.fetchGames();
   }, []);
 
   return (
@@ -27,7 +14,11 @@ function Home() {
       
       {/* Slider de juegos */}
       <div className="max-w-5xl mx-auto">
-        <GameSlider games={games} />
+        {HomeStore.loading ? (
+          <p className="text-center text-lg text-gray-500">Cargando juegos populares...</p>
+        ) : (
+          <GameSlider games={HomeStore.games} />
+        )}
       </div>
 
       {/* 🔥 Sección Promocional */}
@@ -41,6 +32,6 @@ function Home() {
       </div>
     </div>
   );
-}
+});
 
 export default Home;

@@ -1,15 +1,20 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 function GameSlider({ games }) {
-  // 🔴 Extraemos `results`, si no existe, usamos un array vacío
-  const gameList = games?.results ?? [];
+  const [gameList, setGameList] = useState([]);
 
-  // 🔴 Si `gameList` está vacío, mostramos un mensaje de carga
+  // ✅ Asegurar que `gameList` se actualiza cuando cambian los juegos
+  useEffect(() => {
+    console.log("📢 Recibiendo juegos en GameSlider:", games);
+    setGameList(games);
+  }, [games]);
+
   if (gameList.length === 0) {
-    return <p className="text-center text-gray-500">Cargando juegos populares...</p>;
+    return <p className="text-center text-gray-500">No hay juegos populares disponibles.</p>;
   }
 
   const settings = {

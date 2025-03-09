@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllPublishers } from "../services/api";
+import { observer } from "mobx-react-lite";
+import PublishersStore from "../stores/PublishersStore";
 
-function Publishers() {
-  const [publishers, setPublishers] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(5);
-  const [loading, setLoading] = useState(true);
-
+const Publishers = observer(() => {
   useEffect(() => {
-    const fetchPublishers = async () => {
-      try {
-        setLoading(true);
-        const data = await getAllPublishers(page);
+    PublishersStore.fetchPublishers();
+  }, [PublishersStore.page]);
 
-        console.log("📊 Publishers obtenidos:", data.results);
-
-        setPublishers(data.results || []);
-        setTotalPages(data?.count ? Math.ceil(data.count / 20) : 1);
-      } catch (error) {
-        console.error("❌ Error al obtener publishers:", error);
-        setPublishers([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPublishers();
-  }, [page]);
-
-  if (loading) {
+  if (PublishersStore.loading) {
     return <p className="text-center text-lg mt-10 text-white">Cargando publishers...</p>;
   }
 
-  if (!publishers || publishers.length === 0) {
+  if (!PublishersStore.publishers || PublishersStore.publishers.length === 0) {
     return <p className="text-center text-lg mt-10 text-red-500">No se encontraron publishers.</p>;
   }
 
@@ -43,7 +22,7 @@ function Publishers() {
 
       {/* Tarjetas de Publishers */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {publishers.map((publisher) => (
+        {PublishersStore.publishers.map((publisher) => (
           <Link
             to={`/publisher/${publisher.id}`}
             key={publisher.id}
@@ -63,8 +42,8 @@ function Publishers() {
       {/* 🔄 Controles de paginación */}
       <div className="flex justify-center mt-8 space-x-4">
         <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
+          onClick={() => PublishersStore.setPage(PublishersStore.page - 1)}
+          disabled={PublishersStore.page === 1}
           className="px-6 py-3 bg-gray-800 text-white rounded-full shadow-md transition 
             hover:bg-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -72,12 +51,12 @@ function Publishers() {
         </button>
 
         <span className="px-6 py-3 bg-gray-900 text-neon-blue font-bold rounded-full shadow-md">
-          Página {page} de {totalPages}
+          Página {PublishersStore.page} de {PublishersStore.totalPages}
         </span>
 
         <button
-          onClick={() => setPage(page + 1)}
-          disabled={page === totalPages}
+          onClick={() => PublishersStore.setPage(PublishersStore.page + 1)}
+          disabled={PublishersStore.page === PublishersStore.totalPages}
           className="px-6 py-3 bg-gray-800 text-white rounded-full shadow-md transition 
             hover:bg-neon-blue disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -86,6 +65,6 @@ function Publishers() {
       </div>
     </div>
   );
-}
+});
 
 export default Publishers;
